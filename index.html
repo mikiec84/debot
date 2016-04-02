@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Debot by tomoima525</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Debot</h1>
+      <h2 class="project-tagline">A simple Android library to create Debugging menu</h2>
+      <a href="https://github.com/tomoima525/debot" class="btn">View on GitHub</a>
+      <a href="https://github.com/tomoima525/debot/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/tomoima525/debot/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="debot" class="anchor" href="#debot" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Debot</h1>
+
+<p><img src="https://raw.githubusercontent.com/tomoima525/debot/master/art/debot_logo.png" alt="debot_logo.png"><br>
+A simple Android library to create Debugging menu.</p>
+
+<p>Debot offers features that are useful to debug Android applications. Those features can be added to any activity that has the toolbar menu. Also, developers can easily add their own custom debugging features with simple steps.</p>
+
+<p><img src="https://raw.githubusercontent.com/tomoima525/debot/master/art/debot_4.gif" alt="debot_4.gif"></p>
+
+<h2>
+<a id="how-it-looks" class="anchor" href="#how-it-looks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How it looks</h2>
+
+<p>Once you setup Debot to your app, you will see couple of debugging features are added to your toolbar menu.</p>
+
+<ul>
+<li>Default debugging menu<br>
+<img src="https://raw.githubusercontent.com/tomoima525/debot/master/art/debot-sample1.png" alt="debot-sample1.png">
+</li>
+<li>Check Density<br>
+<img src="https://raw.githubusercontent.com/tomoima525/debot/master/art/debot-sample4.png" alt="debot-sample4.png">
+</li>
+<li>Check App ver<br>
+<img src="https://raw.githubusercontent.com/tomoima525/debot/master/art/debot-sample2.png" alt="debot-sample2.png">
+</li>
+<li>Show intent and Activity Info<br>
+<img src="https://raw.githubusercontent.com/tomoima525/debot/master/art/debot-sample3.png" alt="debot-sample3.png">
+</li>
+<li>Dev input (Automatically adds text to EditText field )<br>
+<img src="https://raw.githubusercontent.com/tomoima525/debot/master/art/debot-sample5.png" alt="debot-sample5.png">
+</li>
+</ul>
+
+<h2>
+<a id="setup" class="anchor" href="#setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Setup</h2>
+
+<h3>
+<a id="download" class="anchor" href="#download" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Download</h3>
+
+<p>Grab Debot from Gradle:</p>
+
+<div class="highlight highlight-source-groovy"><pre>debugCompile <span class="pl-s"><span class="pl-pds">'</span>com.tomoima.debot:debot:1.1.0<span class="pl-pds">'</span></span>
+releaseCompile <span class="pl-s"><span class="pl-pds">'</span>com.tomoima.debot:debot-no-op:1.1.0<span class="pl-pds">'</span></span></pre></div>
+
+<h3>
+<a id="initialization" class="anchor" href="#initialization" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Initialization</h3>
+
+<ol>
+<li>Call <code>DebotConfigurator.configureWithDefault()</code> at the Application's <code>onCreate()</code> class.</li>
+</ol>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">MyApplication</span> <span class="pl-k">extends</span> <span class="pl-e">Application</span> {
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">onCreate</span>() {
+        <span class="pl-v">super</span><span class="pl-k">.</span>onCreate();
+        <span class="pl-smi">DebotConfigurator</span><span class="pl-k">.</span>configureWithDefault(<span class="pl-v">this</span>);
+    }
+}</pre></div>
+
+<ol>
+<li>Set below to any Activity you want to show the debugging menu.</li>
+</ol>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">MainActivity</span> <span class="pl-k">extends</span> <span class="pl-e">AppCompatActivity</span>{
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">protected</span> <span class="pl-k">void</span> <span class="pl-en">onCreate</span>(<span class="pl-smi">Bundle</span> <span class="pl-v">savedInstanceState</span>) {
+        <span class="pl-v">super</span><span class="pl-k">.</span>onCreate(savedInstanceState);
+        setContentView(<span class="pl-smi">R</span><span class="pl-k">.</span>layout<span class="pl-k">.</span>activity_main);
+        <span class="pl-smi">Debot</span><span class="pl-k">.</span>getInstance(<span class="pl-v">this</span>);
+    }
+}    </pre></div>
+
+<p>Calling from BaseActivity's onCreate method is suggested if you always want to use them.
+That's it! Start your app and there will be the debugging menu added on the toolbar. </p>
+
+<h2>
+<a id="change-debot-visibility" class="anchor" href="#change-debot-visibility" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Change Debot visibility</h2>
+
+<p>In some cases, You don't want to show debugging menu. You can control the visibility of Debugging menu by just calling <code>Debot.setVisibility()</code> at <code>onPrepareOptionsMenu</code>  </p>
+
+<div class="highlight highlight-source-java"><pre>@<span class="pl-smi">Override</span>
+<span class="pl-k">public</span> <span class="pl-k">boolean</span> onPrepareOptionsMenu(<span class="pl-smi">Menu</span> menu) {
+    <span class="pl-smi">Debot</span><span class="pl-k">.</span>setVisibility(menu, menuVisibility);
+    <span class="pl-k">return</span> <span class="pl-v">super</span><span class="pl-k">.</span>onPrepareOptionsMenu(menu);
+}</pre></div>
+
+<p>See the <a href="debot-sample"><code>debot-sample</code> project</a> for more details.</p>
+
+<h2>
+<a id="custom-debugging-plugins" class="anchor" href="#custom-debugging-plugins" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Custom debugging plugins</h2>
+
+<p>You can create your own debugging feature by developing a class which inherits <code>DebotStrategy</code>.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">MyDebotStrategy</span> <span class="pl-k">extends</span> <span class="pl-e">DebotStrategy</span>{
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">startAction</span>(<span class="pl-k">@NonNull</span> <span class="pl-smi">Activity</span> <span class="pl-v">activity</span>) {
+    <span class="pl-c">// Do your things</span>
+    }
+}</pre></div>
+
+<p>Then, at the Application class, call <code>Debot.configureWithCustomizeMenu()</code></p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">MyApplication</span> <span class="pl-k">extends</span> <span class="pl-e">Application</span> {
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">onCreate</span>() {
+        <span class="pl-v">super</span><span class="pl-k">.</span>onCreate();
+        <span class="pl-smi">DebotStrategyBuilder</span> builder <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">DebotStrategyBuilder</span>.<span class="pl-smi">Builder</span>(context)
+                .registerMenu(<span class="pl-s"><span class="pl-pds">"</span>My debug feature<span class="pl-pds">"</span></span>, <span class="pl-k">new</span> <span class="pl-smi">MyDebotStrategy</span>())
+                .build();
+        <span class="pl-smi">DebotConfigurator</span><span class="pl-k">.</span>configureWithCustomizeMenu(<span class="pl-v">this</span>, builder<span class="pl-k">.</span>getStrategyList());
+    }
+}</pre></div>
+
+<h2>
+<a id="call-a-specific-method-from-your-activity" class="anchor" href="#call-a-specific-method-from-your-activity" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Call a specific method from your Activity</h2>
+
+<p>If you want to call a specific method from your Activity, annotate the method with <code>@DebotAnnotation</code></p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-c">//Your Activity</span>
+@DebotAnnotation(<span class="pl-s"><span class="pl-pds">"</span>debugInput<span class="pl-pds">"</span></span>)  <span class="pl-c">// A parameter for @DebotAnnotation should be same as the method's name</span>
+<span class="pl-k">public</span> <span class="pl-k">void</span> debugInput() {
+    <span class="pl-c">// Do things</span>
+}
+</pre></div>
+
+<p>Also, setup a custom debugging plugin with <code>DebotCallActivityMethodStrategy</code></p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">MyApplication</span> <span class="pl-k">extends</span> <span class="pl-e">Application</span> {
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">onCreate</span>() {
+        <span class="pl-v">super</span><span class="pl-k">.</span>onCreate();
+        <span class="pl-smi">DebotStrategyBuilder</span> builder <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">DebotStrategyBuilder</span>.<span class="pl-smi">Builder</span>(context)
+                .registerMenu(<span class="pl-s"><span class="pl-pds">"</span>input<span class="pl-pds">"</span></span>, <span class="pl-k">new</span> <span class="pl-smi">DebotCallActivityMethodStrategy</span>(<span class="pl-s"><span class="pl-pds">"</span>debugInput<span class="pl-pds">"</span></span>))
+                .build();
+        <span class="pl-smi">DebotConfigurator</span><span class="pl-k">.</span>configureWithCustomizeMenu(<span class="pl-v">this</span>, builder<span class="pl-k">.</span>getStrategyList());
+    }
+}
+</pre></div>
+
+<h2>
+<a id="contact" class="anchor" href="#contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contact</h2>
+
+<p><a href="https://twitter.com/tomoima525">@tomoima525</a></p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+
+<pre><code>Tomoaki Imai 2016
+Licensed under the Apache License, Version 2.0 (the "License").
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed
+under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
+OR CONDITIONS OF ANY KIND, either express or implied. See the License for
+the specific language governing permissions and limitations under the License.
+
+You agree that all contributions to this repository, in the form of fixes, 
+pull-requests, new examples etc. follow the above-mentioned license.
+</code></pre>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/tomoima525/debot">Debot</a> is maintained by <a href="https://github.com/tomoima525">tomoima525</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
